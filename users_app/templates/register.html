@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="four">
+    <div class="container">
+        <h3>Register Form</h3>
+        <form method="POST" class="mt-5 col-6 ">
+            {% csrf_token %}
+            <div class="row gtr-uniform">
+            {{form}}
+            </div>
+            <br/>
+            <ul class="actions">
+                <li><input type="submit" class="button primary fit" value="Register" /></li>
+            </ul>
+            </div>
+        </form>
+    
+</section>
+
+{% endblock content %}

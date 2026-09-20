@@ -110,8 +110,25 @@ Autentykacja użytkowników
 1. Stwórz nową aplikację (users_app)
     `django-admin startapp users_app`
 2. Zarejestruj ją w settings.py i stwórz w niej plik urls.py z path dla 
-'register'.
-3. W users_app/views.py zaimportuj UserCreationForm z 'django.contrib.auth.forms' 
+'register':
+    ```from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('register', views.register, name='register'),
+]```
+3. Stwórz plik forms.py w users_app:
+```from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+class CustomRegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']```
+3. W users_app/views.py zaimportuj CustomRegisterForm
 i stwórz widok dla register.
 4. Przygotuj register.html w users_app/templates.
 5. Użyj crispy by poprawić wygląd formularza rejestracji:
