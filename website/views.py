@@ -13,7 +13,7 @@ def index(request):
             form.save()
         return redirect('index')
     else: # GET
-        posts = Post.objects.all()
+        posts = Post.objects.filter(manage=request.user)
     return render(request, 'index.html', {'posts': posts})
 
 @login_required
