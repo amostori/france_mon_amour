@@ -25,7 +25,7 @@
 					<ul>
 						<li><a href="{% url 'index' %}" class="active">Home</a></li>
 						<li><a href="{% url 'things' %}">Django</a></li>
-						<li><a href="{% url 'example' %}">Example</a></li>
+						{% comment %} <li><a href="{% url 'example' %}">Example</a></li> {% endcomment %}
 						{% if user.is_authenticated %}
 						<li>
 							<form   method="post" action="{% url 'logout' %}">
