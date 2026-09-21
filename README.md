@@ -183,7 +183,13 @@ PostgreSQL
 podaj hasło
 3. Zainstaluj psycopg2:
     `pip install psycopg2`
-4. Zaktualizuj DATABASE w settings.py
+3. Zainstaluj django-environ, stwórz plik .env w katalogu z settings.py.
+Upewnij się, że plik .env jest wpisany go .gitignore.
+W settings.py dodaj 'import environ' oraz
+    `env = environ.Env()` 
+    `environ.Env.read_env()`    następnie podmień secret_key, debug, database (wszystko oprócz ENGINE) na `env('DJANGO_SECRET_KEY')` itp
+
+
 5. Zrób migrację bazy danych, stwórz superusera.
     `python manage.py migrate`
     `python manage.py createsuperuser`
@@ -194,11 +200,6 @@ Deployment
 
 2. W katalogu z plikiem manage.py stwórz .gitignore ze strony
  'https://github.com/github/gitignore/blob/main/Python.gitignore'
-3. Zainstaluj django-environ, stwórz plik .env w katalogu z settings.py.
-Upewnij się, że plik .env jest wpisany go .gitignore.
-4. W settings.py dodaj 'import environ' oraz
-    `env = environ.Env()` 
-    `environ.Env.read_env()`    następnie podmień secret_key, debug, database (wszystko oprócz ENGINE) na `env('DJANGO_SECRET_KEY')` itp
 
 
 Railway
@@ -229,3 +230,5 @@ repo z apką.
 `CSRF_TRUSTED_ORIGINS = ["https://taskmate-production-e8f2.up.railway.app"]`
 
 Zdjęcia pochodzą z https://unsplash.com/s/photos/france
+
+ctrl+w - usunięcie ostatniego słowa w terminalu
