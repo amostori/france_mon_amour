@@ -23,9 +23,13 @@
 				</header>
 				<nav id="nav">
 					<ul>
-						<li><a href="{% url 'index' %}" class="active">Home</a></li>
-						<li><a href="{% url 'things' %}">Django</a></li>
-						{% comment %} <li><a href="{% url 'example' %}">Example</a></li> {% endcomment %}
+						<li><a href="#one" class="active">Home</a></li>
+						<li><a href="#two">Django</a></li>
+						
+					</ul>
+				</nav>
+				<footer>
+					<ul class="icons">
 						{% if user.is_authenticated %}
 						<li>
 							<form   method="post" action="{% url 'logout' %}">
@@ -37,19 +41,13 @@
 						<li><a href="{% url 'login' %}">Login</a></li>
 						<li><a href="{% url 'register' %}">Register</a></li>
 						{% endif %}
-						
-					</ul>
-				</nav>
-				<footer>
-					<ul class="icons">
-						<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-						<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
 					</ul>
 				</footer>
 			</section>
 			<div id="wrapper">
 				<!-- Main -->
 				<div id="main">
+					<!-- #Two: France Table -->
 					<section id="one">
 						<div class="image main" data-position="center">
 							<img src="{% static 'images/baner.jpg' %}" alt="" />
@@ -59,6 +57,48 @@
 								{% block content %}{% endblock %}
 							</header>
 						</div> 
+					</section>
+					<!-- #Two: Django -->
+					<section id="two">
+						<div class="container">
+    						<h4>Django - inicjacja</h4>
+								<ol>
+									<li><code>python3 -m venv venv</code></li>
+									<li><code>source venv/bin/activate</code></li>
+									<li><code>pip install django</code></li>
+									<li><code>django-admin startproject config .</code></li>
+									<li><code>django-admin startapp website</code></li>
+									<li><code>python manage.py migrate</code></li>
+									<li><code>python manage.py runserver</code></li>    
+									<li><code>python manage.py createsuperuser</code></li>
+									<li>settings.py: nazwa aplikacji do <code>INSTALLED_APPS</code></li>
+									<li>config/urls.py: <code>path('', include('website.urls'))</code></li>
+									<li>website/urls.py:
+										<pre><code>
+from django.urls import path
+from . import views
+
+urlpatterns = [
+	path('', views.home, name='home'),
+]
+										</code></pre>
+									</li>
+									<li>website/views.py:
+<pre><code>
+from django.shortcuts import render
+
+def home(request):
+	return render(request, 'index.html')
+</code></pre>
+									</li>
+
+								</ol>
+    						<h4>Django - szablon</h4>
+								<ol>
+									<li>templates/index.html</li>
+									<li>templates/base.html</li>
+								</ol>
+						</div>
 					</section>
 				</div>
 

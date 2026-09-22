@@ -34,6 +34,3 @@ def delete_post(request, post_id):
 
 def example(request):
     return render(request, 'example.html')
-
-def things(request):
-    return render(request, 'things.html')

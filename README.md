@@ -232,3 +232,9 @@ repo z apką.
 Zdjęcia pochodzą z https://unsplash.com/s/photos/france
 
 ctrl+w - usunięcie ostatniego słowa w terminalu
+
+
+Mały, Pln
+Beri, Pln
+git reset --hard HEAD resetuje stan do ostatniego komita
+git clean -fd usuwa pliki nieśledzione
