@@ -50,7 +50,7 @@
 					<!-- #Two: France Table -->
 					<section id="one">
 						<div class="image main" data-position="center">
-							<img src="{% static 'images/baner.jpg' %}" alt="" />
+							<img src="{% static 'images/baner5.jpg' %}" alt="" />
 						</div>
 						<div class="container">
 							<header class="major">
@@ -95,8 +95,30 @@ def home(request):
 								</ol>
     						<h4>Django - szablon</h4>
 								<ol>
-									<li>templates/index.html</li>
+									<li>website/templates/home.html</li>
 									<li>templates/base.html</li>
+									<li>settings.py:</li>
+									<li><code>(TEMPLATES:)'DIRS': [BASE_DIR / 'templates']</code></li>
+									<li>Folder static i settings.py:</li>
+									<li><code>STATICFILES_DIRS = [BASE_DIR / 'static']</code></li>
+								</ol>
+							<h4>Django - model</h4>
+								<ol>
+									<li>website/models.py stwórz klasę z polami modelu:
+										<pre><code>
+from django.db import models
+
+class Post(models.Model):
+    body = models.TextField()
+    manage = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=None)
+    
+    def __str__(self):
+        return self.body
+										</code></pre>
+									</li>
+									<li><code>python manage.py makemigrations</code></li>
+									<li><code>python manage.py migrate</code></li>
+									<li>W pliku admin.py zarejestruj model.</li>
 								</ol>
 						</div>
 					</section>
