@@ -1,22 +1,3 @@
-1. Do pliku .html dodaj formularz z Bootstrapa. Dodaj metodę POST i 'name' do znacznika
-'form' oraz `{% csrf_token %}`.
-3. W pliku views.py zaimportuj klasę formularza, następnie w widoku z formularzem
-(tu: home) w przypadku POST pobierz dane z formularza i zapisz w bazie danych.
-Dodaj message w przypadku udanego zapisu.
-4. W .html wypisz message
-
-Usuwanie obiektów z bazy - CRUD
-1. W pliku urls.py dodaj 'path' do usuwania (delete) z `<task_id>`
-2. W pliku views.py dodaj metodę delete_task, która pobierze `<task_id>` z url
-i usunie task z tym id.
-3. W pliku .html dodaj znacznik 'a' i w nim 'href' do url `delete/<task_id>` co pozwoli usuwać.
-
-Edycja
-1. Dodaj path do edycji w urls.py
-2. We views.py dodaj metodę edit_task
-3. Dodaj widok edit_task.html
-4. Aby edytować done/not done postępuj jak wyżej.
-
 Paginacja
 1. W views.py import Pagination z django.core.paginator
 2. W metodzie home dodaj kod definiujący paginację.

@@ -105,7 +105,7 @@ def home(request):
 						</section>
 				<section id="three">
 						<div class="container">				
-							<h4>Django - model</h4>
+							<h4>Django - baza danych</h4>
 								<ol>
 									<li>website/models.py stwórz klasę z polami modelu:
 										<pre><code>
@@ -143,6 +143,71 @@ class PostForm(forms.ModelForm):
 		fields = ['body']
 										</code></pre>
 									</li>
+									<li>views.py:
+										<pre><code>	
+from .models import Post
+from .forms import PostForm
+
+def home(request):
+	if request.method == 'POST':
+		form = PostForm(request.POST or None)
+		if form.is_valid():
+			form.save()
+		return redirect('home')
+	else: # GET
+		posts = Post.objects.filter(manage=request.user)
+	return render(request, 'home.html', {'posts': posts})
+										</code></pre>
+									</li>
+								</ol>
+							<h4>Django - CRUD</h4>
+								<ol>
+									<li>website/urls.py:<code>path('delete/<post_id>', views.delete_post, name='delete_post'),</code></li>
+
+									<li>views.py:
+										<pre><code>
+def delete_post(request, post_id):
+    Post.objects.get(pk=post_id).delete()
+    return redirect('index')
+										</code></pre>	
+									</li>
+									<li>W pliku .html dodaj znacznik 'a' i w nim 'href' do url <code>delete/<task_id></code> co pozwoli usuwać.</li>
+									<li>views.py: <code>path('edit/<post_id>', views.edit_post, name='edit_post'),</code>
+									</li>
+									<li>views.py:
+										<pre><code>
+def edit_post(request, post_id):
+    post = Post.objects.get(pk=post_id)
+    if request.method == 'POST':
+        
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+        return redirect('index')
+    return render(request, 'edit_post.html', {'post': post})
+										</code></pre>
+									</li>
+									<li>edit_task.html: formularz z polem do edycji z określoną value jako treść postu</li>
+								</ol>
+								<h4>Django - paginacja</h4>
+								<ol>
+									<li>views.py:
+										<pre><code>
+from django.core.paginator import Paginator
+											
+def index(request):
+	if request.method == 'POST':
+		...
+	else: # GET
+		else:
+        all_posts = models.TaskList.objects.filter(manage=request.user)
+        paginator = Paginator(all_posts, 5) # 5 tasks per page
+        page = request.GET.get('pg') # page number from url
+        all_posts = paginator.get_page(page) # returns page object
+	return render(request, 'index.html', {'all_posts': all_posts})
+										</code></pre>
+									</li>
+									<li>W html dodaj element paginujący z bootstrapa i połącz go z paginatorem z views.py</li>
 								</ol>
 						</div>
 					</section>
@@ -151,7 +216,81 @@ class PostForm(forms.ModelForm):
 						<div class="container">
 							<h4>Django - logowanie</h4>
 								<ol>
-									<li>settings.py:</li>
+									<li><code>python manage.py startapp accounts</code></li>
+									<li>settings.py: dodaj apklikację 'accounts'</li>	
+									<li>accounts/urls.py:</li>
+										<pre><code>
+from django.urls import path
+from . import views
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+	path('register/', views.register, name='register'),
+	path('login', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
+]
+										</code></pre></li>
+									<li>accounts/forms.py:
+										<pre><code>
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+class CustomRegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+										</code></pre></li>
+									<li>accounts/views.py:
+										<pre><code>
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import CustomRegisterForm
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Account created successfully!')
+            return redirect('index')
+    else:
+        form = CustomRegisterForm()
+    return render(request, 'register.html', {'form': form})
+
+										</code></pre></li>
+									<li>accounts/templates/register.html</li>
+									<li>accounts/templates/login.html</li>
+									<li>accounts/templates/logout.html</li>
+									<li><code>pip install crispy-bootstrap5</code></li>
+									<li>settings.py: <code>CRISPY_TEMPLATE_PACK = 'bootstrap5'</code></li>
+									<li>settings.py: <code>CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'</code></li>
+									<li>settings.py: INSTALLED_APPS: <code>'crispy_forms',</code></li>
+									<li>settings.py: INSTALLED_APPS: <code>'crispy_bootstrap5',</code></li>
+									<li>settings.py, wsazać miejsce przeniesienia
+										po zalogowaniu: <code>LOGIN_REDIRECT_URL = 'index'</code></li>
+									<li>website/views.py: <code>from django.contrib.auth.decorators import login_required</code></li>
+									<li>Udekoruj wszystkie strony z logowaniem: <code>@login_required</code></li>
+									<li>W przypadku nie zalogowanego użytkownika, przekieruj na strone logowania, settings.py: <code>LOGIN_URL = "login"</code></li>
+									<li>Usuń dotychczasową bazę danych</li>
+									<li>website/models.py, dodaj pole 'manage': <code>manage = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=None)</code></li>
+									<li>website/views.py:
+										<pre><code>
+@login_required
+def home(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST or None)
+        if form.is_valid():
+            form.save(commit=False).manage = request.user
+            form.save()
+        return redirect('home')
+    else: # GET
+        posts = Post.objects.filter(manage=request.user)
+    return render(request, 'home.html', {'posts': posts})
+										</code></pre></li>
+									<li>Szablon edit.html również wymaga zabezpieczenia (if request.user == post.manage).</li>									
 								</ol>
 						</div>
 					</section>
