@@ -25,6 +25,9 @@
 					<ul>
 						<li><a href="#one" class="active">Home</a></li>
 						<li><a href="#two">Django</a></li>
+						<li><a href="#three">Django - baza danych</a></li>
+						<li><a href="#four">Django - Logowanie</a></li>
+						<li><a href="#five">Shortcuts</a></li>
 						
 					</ul>
 				</nav>
@@ -91,10 +94,6 @@ def home(request):
 	return render(request, 'index.html')
 </code></pre>
 									</li>
-
-								</ol>
-    						<h4>Django - szablon</h4>
-								<ol>
 									<li>website/templates/home.html</li>
 									<li>templates/base.html</li>
 									<li>settings.py:</li>
@@ -102,6 +101,10 @@ def home(request):
 									<li>Folder static i settings.py:</li>
 									<li><code>STATICFILES_DIRS = [BASE_DIR / 'static']</code></li>
 								</ol>
+							</div>
+						</section>
+				<section id="three">
+						<div class="container">				
 							<h4>Django - model</h4>
 								<ol>
 									<li>website/models.py stwórz klasę z polami modelu:
@@ -119,6 +122,56 @@ class Post(models.Model):
 									<li><code>python manage.py makemigrations</code></li>
 									<li><code>python manage.py migrate</code></li>
 									<li>W pliku admin.py zarejestruj model.</li>
+									<li>W pliku views.py stwórz funkcje:
+										<pre><code>
+from django.shortcuts import render
+from .models import Post
+
+def home(request):
+	posts = Post.objects.all()
+	return render(request, 'index.html', {'posts': posts})
+										</code></pre>
+									</li>
+									<li>forms.py:
+										<pre><code>
+from django import forms
+from .models import Post
+
+class PostForm(forms.ModelForm):
+	class Meta:
+		model = Post
+		fields = ['body']
+										</code></pre>
+									</li>
+								</ol>
+						</div>
+					</section>
+					<!-- #Four: Django - logowanie -->
+					<section id="four">
+						<div class="container">
+							<h4>Django - logowanie</h4>
+								<ol>
+									<li>settings.py:</li>
+								</ol>
+						</div>
+					</section>
+					<!-- #Five: Shortcuts -->
+					<section id="five">
+						<div class="container">
+							<h4>Shortcuts - VSC</h4>
+								<ol>
+									<li><code>Option + Shift + Down Arrow</code> kopiowanie linii</li>
+									<li><code>ctrl+shift+k</code> kasowanie linii</li>
+								</ol>
+							<h4>Shortcuts - Terminal</h4>
+								<ol>
+									<li><code>ctrl+r</code> przeszukanie historii terminala i 'enter' by wykonać komendę</li>
+									<li><code>ctrl+w</code> - usunięcie ostatniego słowa w terminalu</li>
+								</ol>
+							<h4>Shortcuts - Git</h4>
+								<ol>
+									<li><code>git reset --hard HEAD</code> resetuje stan do ostatniego komita</li>
+									<li><code>git clean -fd</code> usuwa pliki nieśledzone</li>
 								</ol>
 						</div>
 					</section>
