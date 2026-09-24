@@ -299,7 +299,56 @@ def home(request):
 						<div class="container">
 							<h4>Django - Upload</h4>
 								<ol>
-									<li></li>
+									<li>Usuń plik z bazą danych 'db.sqlite3'</li>
+									<li>Po instalacji PostgreSql na komputerze (odklikaj 'stack builder' w trakcie instalacji) utwórz na nim bazę danych</li>
+									<li><code>pip install psycopg2</code></li>
+									<li><code>pip install django-environ</code></li>
+									<li><code>pip install gunicorn</code></li>
+									<li><code>pip install whitenoise</code></li>
+									<li>settings.py (Middleware), poniżej middleware.security:
+										<code>'whitenoise.middleware.WhiteNoiseMiddleware'</code></li>
+<li>settings.py:
+<pre><code>
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / "static",]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+</code></pre></li>	
+<li>.gitignore w głównym katalogu. Wzór: https://github.com/github/gitignore/blob/main/Python.gitignore</li>
+<li><code>git init</code> w głównym katalogu</li>
+<li>.env w katalogu z settings.py:<pre><code>
+DJANGO_SECRET_KEY=wpisz swoj klucz
+DJANGO_DEBUG=True
+PGDATABASE=nazwa bazy danych z PostgreSql
+PGUSER=postgres
+PGPASSWORD=martas7
+PGHOST=localhost
+PGPORT=5432
+</code></pre></li>	
+<li>Dodaj .env do .gitignore</li>
+<li>settings.py:<pre><code>
+import environ	
+	
+env = environ.Env()
+environ.Env.read_env()
+</pre></code></li>
+<li>podmień secret_key, debug, database (wszystko oprócz ENGINE) na <code>env('DJANGO_SECRET_KEY')</code> itp</li>
+<li><code>python manage.py migrate</code></li>
+<li><code>python manage.py createsuperuser</code></li>
+<li>Stwórz Procfile w głównym katalogu:<pre><code>
+web: python manage.py makemigrations && python manage.py migrate && gunicorn config.wsgi
+</code></pre></li>
+<li><code>pip freeze > requirements.txt</code></li>
+<li><code>python manage.py collectstatic</code></li>
+<li>Wyślij repo na Githuba</li>
+<li>Na stronie Railway stwórz nowy projekt z repozytorium</li>
+<li>Dodaj nową bazę Postgresql</li>
+<li>Skonfiguruj zmienne DEBUG, SECRET_KEY, PGDATABASE, PGUSER, PGPASSWORD, PGHOST, PGPORT na Railway</li>
+<li>Po szczęśliwym deployment kliknij 'View logs' by sprawdzić czy wszystko ok.</li>
+<li>Przejdź do 'Networking' w ustawieniach i kliknij 'Generuj Domain'.</li>
+<li>Zmień ALLOWED_HOSTS na adres domeny wygenerowanej:</li>
+<li><code>ALLOWED_HOSTS = ["taskmate-production-e8.up.railway.app", "localhost", "127.0.0.1"]</code></li>
+<li><code>CSRF_TRUSTED_ORIGINS = ["https://taskmate-production-e8.up.railway.app"]</code></li>
+<li>Wyślij repo na Railway</li>
 								</ol>
 						</div>
 					</section>
