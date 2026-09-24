@@ -307,14 +307,7 @@ def home(request):
 									<li><code>pip install whitenoise</code></li>
 									<li>settings.py (Middleware), poniżej middleware.security:
 										<code>'whitenoise.middleware.WhiteNoiseMiddleware'</code></li>
-<li>settings.py:
-<pre><code>
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / "static",]
-STATIC_ROOT = BASE_DIR / "staticfiles"
-</code></pre></li>	
-<li>.gitignore w głównym katalogu. Wzór: https://github.com/github/gitignore/blob/main/Python.gitignore</li>
-<li><code>git init</code> w głównym katalogu</li>
+<li>settings.py:<code>STATIC_ROOT = BASE_DIR / "staticfiles"</code></li>	
 <li>.env w katalogu z settings.py:<pre><code>
 DJANGO_SECRET_KEY=wpisz swoj klucz
 DJANGO_DEBUG=True
@@ -324,7 +317,6 @@ PGPASSWORD=martas7
 PGHOST=localhost
 PGPORT=5432
 </code></pre></li>	
-<li>Dodaj .env do .gitignore</li>
 <li>settings.py:<pre><code>
 import environ	
 	
@@ -339,6 +331,9 @@ web: python manage.py makemigrations && python manage.py migrate && gunicorn con
 </code></pre></li>
 <li><code>pip freeze > requirements.txt</code></li>
 <li><code>python manage.py collectstatic</code></li>
+<li>.gitignore w głównym katalogu. Wzór: https://github.com/github/gitignore/blob/main/Python.gitignore</li>
+<li><code>git init</code> w głównym katalogu</li>
+<li>Upewnij się, że .env jest wpisany go .gitignore</li>
 <li>Wyślij repo na Githuba</li>
 <li>Na stronie Railway stwórz nowy projekt z repozytorium</li>
 <li>Dodaj nową bazę Postgresql</li>
