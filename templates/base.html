@@ -345,6 +345,15 @@ web: python manage.py makemigrations && python manage.py migrate && gunicorn con
 <li><code>CSRF_TRUSTED_ORIGINS = ["https://taskmate-production-e8.up.railway.app"]</code></li>
 <li>Wyślij repo na Railway</li>
 								</ol>
+								<h4>Django - hostname</h4>
+								<ol>
+									<li>Na stronie https://www.lh.pl/panel/home przejdź do domen.</li>
+									<li>Zarejestruj nową domenę lub kliknij opcję "konfiguruj" na istniejącej domenie.</li>
+									<li>Wybierz "zaparkowana w LH.pl".</li>
+									<li>Wybierz znowu "opcje", tym razem "edytuj rekordy DNS".</li>
+									<li>Zmień najpierw typ "txt" na te podane w railway.</li>
+									<li>Teraz kliknij "dodaj" i wybierz typ CNAME wpisując dane z railway.</li>
+								</ol>
 						</div>
 					</section>
 					<!-- #Six: Shortcuts -->

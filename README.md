@@ -147,3 +147,19 @@ ctrl+w - usunięcie ostatniego słowa w terminalu
 VSC
 Option + Shift + Down Arrow kopiowanie linii
 ctrl+shift+k kasowanie linii
+
+Django media files
+1. Stwórz folder media
+2. W settings.py
+    MEDIA_URL = '/media'
+    MEDIA_ROOT = '/media'
+3. W urls.py: dodać:
+from django.conf import settings
+from django.conf.urls.static import static
+urlpatterns = [...] + static(settings.MEDIA_URL, document_root=settings.py.MEDIA_ROOT)
+4. W models.py:
+    photo = models.ImageField(upload_to='images')
+5. W html:
+    <image src="{{ employ.photo.url }}">
+
+`{{ forloop.count }}`
