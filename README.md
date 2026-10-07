@@ -163,3 +163,25 @@ urlpatterns = [...] + static(settings.MEDIA_URL, document_root=settings.py.MEDIA
     <image src="{{ employ.photo.url }}">
 
 `{{ forloop.count }}`
+
+Do modelu dodawaj zawsze:
+created_at = models.DateTimeField(auto_now_add=True)
+updated_at = models.DateTimeField(auto_now=True)
+
+Aby pewne pola i belka 'search' były widoczne w panelu Admin należy dodać klasę w pliku 
+admin.py rozszerzającą 'ModelAdmin' i zawierającą 'list_display' oraz search_fields:
+```
+from django.contrib import admin
+from .models import Post
+
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('post', 'is_complited')
+    search_fields = ('post',)
+admin.site.register(Post, PostAdmin)
+```
+
+Aby dane były wyświetlane w odwrotnej kolejności należy dodać order_by do metody pobierającej dane z bazy (views.py):
+`posts = Post.objects.filter(manage=request.user).order_by(-updated_at)`
+
+
+pip install -r requirements.txt

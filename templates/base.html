@@ -270,7 +270,7 @@ def register(request):
 									<li>settings.py: <code>CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'</code></li>
 									<li>settings.py: INSTALLED_APPS: <code>'crispy_forms',</code></li>
 									<li>settings.py: INSTALLED_APPS: <code>'crispy_bootstrap5',</code></li>
-									<li>settings.py, wsazać miejsce przeniesienia
+									<li>settings.py, wskazać miejsce przeniesienia
 										po zalogowaniu: <code>LOGIN_REDIRECT_URL = 'index'</code></li>
 									<li>website/views.py: <code>from django.contrib.auth.decorators import login_required</code></li>
 									<li>Udekoruj wszystkie strony z logowaniem: <code>@login_required</code></li>
@@ -291,7 +291,10 @@ def home(request):
         posts = Post.objects.filter(manage=request.user)
     return render(request, 'home.html', {'posts': posts})
 										</code></pre></li>
-									<li>Szablon edit.html również wymaga zabezpieczenia (if request.user == post.manage).</li>									
+									<li>Szablon edit.html również wymaga zabezpieczenia (if request.user == post.manage).</li>	
+	<li>Aby wylogować użytkownika stwórz logout.html, podaj do niego template w urls.py.</li>
+	<li>Uwaga, w Django 5.0 aby się wylogować należy użyć metody POST i tokena crsf, więc akcję logout
+wykonuje się w formularzu (w szablonie base.html).</li>							
 								</ol>
 						</div>
 					</section>
@@ -353,6 +356,7 @@ web: python manage.py makemigrations && python manage.py migrate && gunicorn con
 									<li>Wybierz znowu "opcje", tym razem "edytuj rekordy DNS".</li>
 									<li>Zmień najpierw typ "txt" na te podane w railway.</li>
 									<li>Teraz kliknij "dodaj" i wybierz typ CNAME wpisując dane z railway.</li>
+									<li>Zaktualizuj ALLOWED_HOSTS i CSRF_TRUSTED_ORIGINS w settings.py.</li>
 								</ol>
 						</div>
 					</section>
@@ -373,6 +377,8 @@ web: python manage.py makemigrations && python manage.py migrate && gunicorn con
 								<ol>
 									<li><code>git reset --hard HEAD</code> resetuje stan do ostatniego komita</li>
 									<li><code>git clean -fd</code> usuwa pliki nieśledzone</li>
+									<li>git config --global core.autocrlf false</li>
+									<li>Strona gitignore.io dla .gitignore
 								</ol>
 						</div>
 					</section>
