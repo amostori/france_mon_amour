@@ -17,8 +17,8 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DJANGO_DEBUG')
 
-ALLOWED_HOSTS = ['web-production-38b23.up.railway.app', 'localhost', '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['https://web-production-38b23.up.railway.app']
+ALLOWED_HOSTS = ['web-production-38b23.up.railway.app', 'francemonamour.pl' 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-38b23.up.railway.app', 'https://francemonamour.pl']
 
 
 # Application definition

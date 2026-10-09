@@ -326,7 +326,19 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 </pre></code></li>
-<li>podmień secret_key, debug, database (wszystko oprócz ENGINE) na <code>env('DJANGO_SECRET_KEY')</code> itp</li>
+<li>podmień secret_key, debug, database na <code>env('DJANGO_SECRET_KEY')</code> itp</li>
+<li><pre><code>
+	DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('PGDATABASE'),
+        'USER': env('PGUSER'),
+        'PASSWORD': env('PGPASSWORD'),
+        'HOST': env('PGHOST'),
+        'PORT': env('PGPORT'),
+    }
+}
+</code></pre></li>
 <li><code>python manage.py migrate</code></li>
 <li><code>python manage.py createsuperuser</code></li>
 <li>Stwórz Procfile w głównym katalogu:<pre><code>
@@ -347,6 +359,7 @@ web: python manage.py makemigrations && python manage.py migrate && gunicorn con
 <li><code>ALLOWED_HOSTS = ["taskmate-production-e8.up.railway.app", "localhost", "127.0.0.1"]</code></li>
 <li><code>CSRF_TRUSTED_ORIGINS = ["https://taskmate-production-e8.up.railway.app"]</code></li>
 <li>Wyślij repo na Railway</li>
+<li>W Railway kliknij na projekt i przejdź do console, stwórz superusera</li>
 								</ol>
 								<h4>Django - hostname</h4>
 								<ol>
@@ -354,8 +367,8 @@ web: python manage.py makemigrations && python manage.py migrate && gunicorn con
 									<li>Zarejestruj nową domenę lub kliknij opcję "konfiguruj" na istniejącej domenie.</li>
 									<li>Wybierz "zaparkowana w LH.pl".</li>
 									<li>Wybierz znowu "opcje", tym razem "edytuj rekordy DNS".</li>
-									<li>Zmień najpierw typ "txt" na te podane w railway.</li>
-									<li>Teraz kliknij "dodaj" i wybierz typ CNAME wpisując dane z railway.</li>
+									<li>Zmień najpierw typ "txt" na te podane w railway (name i value).</li>
+									<li>Teraz kliknij "dodaj" i wybierz typ CNAME wpisując dane z railway (tylko value).</li>
 									<li>Zaktualizuj ALLOWED_HOSTS i CSRF_TRUSTED_ORIGINS w settings.py.</li>
 								</ol>
 						</div>
