@@ -99,6 +99,7 @@ def home(request):
 									</li>
 									<li>website/templates/home.html</li>
 									<li>templates/base.html</li>
+									<li>favicon: https://www.flaticon.com/</li>
 									<li>settings.py:</li>
 									<li><code>(TEMPLATES:)'DIRS': [BASE_DIR / 'templates']</code></li>
 									<li>Folder static i settings.py:</li>
@@ -372,6 +373,26 @@ web: python manage.py makemigrations && python manage.py migrate && gunicorn con
 									<li>Zmień najpierw typ "txt" na te podane w railway (name i value).</li>
 									<li>Teraz kliknij "dodaj" i wybierz typ CNAME wpisując dane z railway (tylko wartość rekordu).</li>
 									<li>Zaktualizuj ALLOWED_HOSTS i CSRF_TRUSTED_ORIGINS w settings.py.</li>
+								</ol>
+								<h4>TinyMCE</h4>
+								<ol>
+									<li>Załóż konto na TinyMCE.com by uzyskać klucz API</li>
+									<li><code>pip install django-tinymce</code></li>
+									<li>W pliku .env wpisz klucz API</li>
+									<li>Stwórz context processor ze skryptem do pobrania klucza</li>
+									<li>Zarejestruj context processor w settings.py</li>
+									<li>Skonfiguruj klucz API w TinyMCE w settings.py (env)</li>
+									<li>Do pliku base.html dodaj w nagłówku skrypt z TinyMCE</li>
+									<li>W pliku z modelem dodaj pole 'body' z TinyMCE (HTMLFIELD) i zmigruj bazę</li>
+									<li>W pliku html z formularzem dodaj skrypt z TinyMCE
+										<pre><code><script>
+      tinymce.init({
+        selector: 'textarea'
+      });
+    </script>
+</code></pre>
+									</li>
+									<li>Konieczne będzie dodanie domeny do zaufanych na stronie TinyMCE.com</li>
 								</ol>
 						</div>
 					</section>
