@@ -394,6 +394,24 @@ web: python manage.py makemigrations && python manage.py migrate && gunicorn con
 									</li>
 									<li>Konieczne będzie dodanie domeny do zaufanych na stronie TinyMCE.com</li>
 								</ol>
+								<h4>Cloudinary</h4>
+								<ol>
+									<li><code>pip install cloudinary</code></li>
+									<li>settings.py: dodaj cloudinary do INSTALLED_APPS</li>
+									<li>.env: wpisz dane z cloudinary</li>
+									<li>settings.py:<pre><code>
+import cloudinary
+
+cloudinary.config(
+    cloud_name = env('CLOUD_NAME'),
+    api_key = env('API_KEY'),
+    api_secret = env('API_SECRET'),
+    secure = True
+)
+</code></pre></li>
+<li>w models.py: <code>from cloudinary.models import CloudinaryField</code></li>
+								</ol>
+
 						</div>
 					</section>
 					<!-- #Six: Shortcuts -->
@@ -417,6 +435,12 @@ web: python manage.py makemigrations && python manage.py migrate && gunicorn con
 									<li><code>git clean -fd</code> usuwa pliki nieśledzone</li>
 									<li>git config --global core.autocrlf false</li>
 									<li>Strona gitignore.io dla .gitignore
+								</ol>
+							<h4>Inne</h4>
+								<ol>
+									<li><code> Command + Option + Shift + V</code> - wklejanie bez formatowania</li>	
+									<li><code>pip install -r requirements.txt</code> - instalacja wszystkich pakietów z pliku requirements.txt</li>
+									<li>Aby potwierdzić operację usunięcia w Django do hiperłącza należy dodać atrybut <code>onclick="return confirm('Are you sure?')"</code></li>	
 								</ol>
 						</div>
 					</section>
