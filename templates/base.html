@@ -104,6 +104,7 @@ def home(request):
 									<li><code>(TEMPLATES:)'DIRS': [BASE_DIR / 'templates']</code></li>
 									<li>Folder static i settings.py:</li>
 									<li><code>STATICFILES_DIRS = [BASE_DIR / 'static']</code></li>
+									<li>W przypadku gotowych szablonów z HTML5 sprawdzić czy w pliku css jest background z image. Jeśli tak, należy prześledzić ścieżkę i poprawić oraz odświeżyć stronę z klawiszem F5 by przeładować plik css.</li>
 								</ol>
 							</div>
 						</section>
@@ -362,7 +363,11 @@ web: python manage.py makemigrations && python manage.py migrate && gunicorn con
 <li><code>ALLOWED_HOSTS = ["taskmate-production-e8.up.railway.app", "localhost", "127.0.0.1"]</code></li>
 <li><code>CSRF_TRUSTED_ORIGINS = ["https://taskmate-production-e8.up.railway.app"]</code></li>
 <li>Wyślij repo na Railway</li>
-<li>W Railway kliknij na projekt i przejdź do console, stwórz superusera</li>
+<li>W Railway kliknij na projekt i przejdź do console, tam uruchom 
+	wirtualne środowisko(w trakcie budowania aplikacji w railway 
+	trzeba podejrzeć gdzie jest tworzone wirtualne środowisko) i stwórz superusera</li>
+	<li><code>source .venv/bin/activate</code></li>
+	<li><code>python manage.py createsuperuser</code></li>
 								</ol>
 								<h4>Django - hostname</h4>
 								<ol>
@@ -422,6 +427,7 @@ cloudinary.config(
 									<li><code>Option + Shift + Down Arrow</code> dublowanie linii</li>
 									<li><code>ctrl+shift+k</code> kasowanie linii</li>
 									<li><code>command+c</code> kopiowanie całej linii</li>
+									<li><code>command+option+strzałka w dół - multicursor</code></li>
 
 								</ol>
 							<h4>Shortcuts - Terminal</h4>
@@ -438,6 +444,7 @@ cloudinary.config(
 								</ol>
 							<h4>Inne</h4>
 								<ol>
+									<li>https://getemoji.com</li>
 									<li><code> Command + Option + Shift + V</code> - wklejanie bez formatowania</li>	
 									<li><code>pip install -r requirements.txt</code> - instalacja wszystkich pakietów z pliku requirements.txt</li>
 									<li>Aby potwierdzić operację usunięcia w Django do hiperłącza należy dodać atrybut <code>onclick="return confirm('Are you sure?')"</code></li>	
